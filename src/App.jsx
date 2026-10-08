@@ -1,17 +1,20 @@
-import { useState } from "react";
-import heroImg from "./assets/hero.png";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "./assets/vite.svg";
 import "./App.css";
-import OptimisticQueryExample from "./assets/components/OptimisticQueryExample";
+import { Route, Routes } from "react-router-dom";
+import Auth from "./assets/pages/Auth.jsx";
+import Checkout from "./assets/pages/Checkout.jsx";
+import Home from "./assets/pages/Home.jsx";
+import Navbar from "./assets/components/Navbar.jsx";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <>
-      <OptimisticQueryExample />
-    </>
+    <div className="app">
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/auth" element={<Auth />} />
+        <Route path="/checkout" element={<Checkout />} />
+      </Routes>
+    </div>
   );
 }
 
