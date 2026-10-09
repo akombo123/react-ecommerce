@@ -4,17 +4,20 @@ import Auth from "./assets/pages/Auth.jsx";
 import Checkout from "./assets/pages/Checkout.jsx";
 import Home from "./assets/pages/Home.jsx";
 import Navbar from "./assets/components/Navbar.jsx";
+import AuthProvider from "./context/AuthContext.jsx";
 
 function App() {
   return (
-    <div className="app">
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/auth" element={<Auth />} />
-        <Route path="/checkout" element={<Checkout />} />
-      </Routes>
-    </div>
+    <AuthProvider>
+      <div className="app">
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/checkout" element={<Checkout />} />
+        </Routes>
+      </div>
+    </AuthProvider>
   );
 }
 
