@@ -1,11 +1,13 @@
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getProductById } from "../../data/products.js";
+import { useCart } from "../../context/CartContext.jsx";
 
 export default function ProductDetails() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const navigate = useNavigate();
+  const { addToCart, cartItems } = useCart();
 
   useEffect(() => {
     const foundProduct = getProductById(id);
@@ -22,6 +24,11 @@ export default function ProductDetails() {
     return <h1>Loading...</h1>;
   }
 
+  const productInCart = cartItems.find((item) => item.id === product.id);
+  const productQuantityLabel = productInCart
+    ? ` (${productInCart.quantity})`
+    : "";
+
   return (
     <div className="page">
       <div className="container">
@@ -33,21 +40,13 @@ export default function ProductDetails() {
             <h1 className="product-detail-name">{product.name}</h1>
             <p className="product-detail-price">${product.price.toFixed(2)}</p>
             <p className="product-detail-description">{product.description}</p>
-            <button className="btn btn-primary">Add to Cart</button>
+            <button
+              className="btn btn-primary"
+              onClick={() => addToCart(product.id)}
+            >
+              Add to Cart {productQuantityLabel}
+            </button>
           </div>
-
-          {/* <div>
-            <h1 className="product-detail-name">{product.name}</h1>
-            <p className="product-detail-price">${product.price.toFixed(2)}</p>
-            <p className="product-detail-description">{product.description}</p>
-
-            <div className="product-card-actions">
-              <Link to="/" className="btn btn-secondary">
-                Continue Shopping
-              </Link>
-              <button className="btn btn-primary">Add to Cart</button>
-            </div>
-          </div> */}
         </div>
       </div>
     </div>
